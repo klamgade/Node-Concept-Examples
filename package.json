@@ -1,0 +1,25 @@
+{
+  "name": "node-concept-examples",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "To learn Nodejs concepts and practice them with a practical examples.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klamgade/Node-Concept-Examples.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/klamgade/Node-Concept-Examples/issues"
+  },
+  "homepage": "https://github.com/klamgade/Node-Concept-Examples#readme",
+  "dependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
