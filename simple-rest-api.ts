@@ -6,9 +6,7 @@
 
 
 import express from "express";
-import type { Request, Response } from "express";
-
-
+import type { Request, Response } from 'express';
 const app = express();
 const PORT = 3000;
 
@@ -16,19 +14,36 @@ const PORT = 3000;
 interface User {
     id: number;
     name: string;
-    email: string;
+    age: number;
 }
 
 // Mock user data
 const users: User[] = [
-    { id: 1, name: "Alice", email: "alice@example.com" },
-    { id: 2, name: "Bob", email: "bob@example.com" },
-    { id: 3, name: "Charlie", email: "charlie@example.com" }
-];
+    { "id": 1, "name": "Alice", "age": 25 },
+    { "id": 2, "name": "Bob", "age": 30 },
+    { "id": 3, "name": "Charlie", "age": 22 }
+]
 
 // Define the /users endpoint
-app.get("/users", (req: Request, res: Response) => {
-    res.json(users);
+//If minAge is provided in the query string, return only users with age ≥ minAge.
+
+app.get("/users", (req: any, res: any) => {
+    console.log(`Incoming request: ${req.method} ${req.url}`);
+    try {
+        const minAge = req.query.minAge as string;
+        // Validate query parameter
+        if (minAge && isNaN(Number(minAge))) {
+            console.error("❌ Invalid minAge provided");
+            return res.status(400).json({ error: "Invalid minAge. Must be a number." });
+        }
+        const filteredUsers = minAge ? users.filter((user) => user.age >= Number(minAge)) : users;
+        console.log(`✅ Returning ${filteredUsers.length} users`);
+        
+        return res.json(filteredUsers);
+    } catch (error) {
+        console.error("🔥 Unexpected server error:", error);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
 // Start the server
